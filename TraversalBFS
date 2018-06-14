@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+void addEdge(vector<int> V[],int u,int v)
+{
+    V[u].push_back(v);
+    V[v].push_back(u);
+}
+
+void printGraph(vector<int>adj[],int v)
+{
+    for(int i=0;i<v;i++)
+    {  cout<<"For edge "<<i<<"--->";
+        for(auto it = adj[i].begin();it!=adj[i].end();it++)
+        {
+            cout<<*it<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+void bfs(vector<int>adj[],int source,int v)  //we used queue therefore it is a BFS
+{
+    bool visited[v];
+    
+    list<int> queue;
+    for(int i=0;i<v;i++)
+    visited[i]=false;
+    
+    visited[source]=true;
+    queue.push_back(source);
+    while(!queue.empty())
+    { int s=queue.front();
+     cout<<s<<" ";
+      queue.pop_front();
+        for(auto it = adj[s].begin();it!=adj[s].end();it++)
+        {
+            if(visited[*it]==false)
+            {
+                visited[*it]=true;
+                queue.push_back(*it);   
+            }
+        }
+    }
+}
+int main()
+{  
+   int V = 5;
+    vector<int> adj[V];
+    addEdge(adj, 0, 1);
+    addEdge(adj, 0, 4);
+    addEdge(adj, 1, 2);
+    addEdge(adj, 1, 3);
+    addEdge(adj, 1, 4);
+    addEdge(adj, 2, 3);
+    addEdge(adj, 3, 4);
+    bfs(adj,0,V);
+}
