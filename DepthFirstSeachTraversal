@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+void addEdge(vector<int>adj[],int u,int v)
+{
+     adj[u].push_back(v);
+     adj[v].push_back(u);
+}
+void printgraph(vector<int> adj[],int n)
+{
+    for(int i=0;i<n;i++)
+    {   cout<<i<<"->";
+        for(auto it = adj[i].begin();it!=adj[i].end();it++)
+        {
+            cout<<*it<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+void helper(vector<int> adj[],bool visited[],int source)
+{
+    cout<<source<<"->";
+    visited[source]=true;
+    for(auto it = adj[source].begin();it<adj[source].end();it++)
+    {  if(visited[*it]==false)
+        helper(adj,visited,*it);
+    }
+}
+int main()
+{  
+   vector<int> adj[5];
+   bool visited[5];
+   memset(visited,false,(sizeof(visited)*5));
+    addEdge(adj, 0, 1);
+    addEdge(adj, 0, 4);
+    addEdge(adj, 1, 2);
+    addEdge(adj, 1, 3);
+    addEdge(adj, 1, 4);
+    addEdge(adj, 2, 3);
+    addEdge(adj, 3, 4);
+    helper(adj,visited,0);
+}
