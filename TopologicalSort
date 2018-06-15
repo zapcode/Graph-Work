@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+void addEdge(vector<int>adj[],int u,int v)
+{
+     adj[u].push_back(v);
+}
+void top_helper(vector<int>adj[],bool visited[],stack<int>&st,int source);
+void topological_sort(stack<int>&st,vector<int>adj[],bool visited[],int n)
+{
+   for(int i=0;i<n;i++)
+   {
+       if(visited[i]==false)
+       top_helper(adj,visited,st,i);
+   }
+   while(!st.empty())
+   {
+       cout<<"->"<<st.top();
+       st.pop();
+   }
+   
+}
+void top_helper(vector<int>adj[],bool visited[],stack<int>&st,int source)
+{
+    visited[source]=true;
+    for(auto it = adj[source].begin();it!=adj[source].end();it++)
+    { if (visited[*it]==false)
+        top_helper(adj,visited,st,*it);
+    }
+    st.push(source);
+    
+}
+int main()
+{   stack<int> st;
+   vector<int> adj[8];
+   bool visited[8];
+   memset(visited,false,(sizeof(visited)*8));
+    addEdge(adj, 0, 2);
+    addEdge(adj, 1, 2);
+    addEdge(adj, 1, 3);
+    addEdge(adj, 2, 4);
+    addEdge(adj, 4, 5);
+    addEdge(adj, 4, 6);
+    addEdge(adj, 3, 5);
+    addEdge(adj, 5, 7);
+    topological_sort(st,adj,visited,8);
+   
+}
